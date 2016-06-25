@@ -5,10 +5,11 @@
 #
 
 # Pull base image.
-FROM dockerfile/java:oracle-java8
+FROM alpine:3.4
 
 ENV ES_PKG_NAME elasticsearch-1.5.0
 
+RUN apk update && apk add openjdk8-jre wget
 # Install Elasticsearch.
 RUN \
   cd / && \
