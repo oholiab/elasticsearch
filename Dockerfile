@@ -7,7 +7,7 @@
 # Pull base image.
 FROM alpine:3.4
 
-ENV ES_PKG_NAME elasticsearch-1.5.0
+ENV ES_PKG_NAME elasticsearch-2.3.4
 
 RUN apk update && apk add openjdk8-jre wget
 # Install Elasticsearch.
@@ -22,8 +22,11 @@ RUN \
 VOLUME ["/data"]
 
 # Mount elasticsearch.yml config
-ADD config/elasticsearch.yml /elasticsearch/config/elasticsearch.yml
+ ADD config/elasticsearch.yml /elasticsearch/config/elasticsearch.yml
 
+RUN adduser -S elasticsearch
+RUN chown -R elasticsearch /elasticsearch /data
+USER elasticsearch
 # Define working directory.
 WORKDIR /data
 
